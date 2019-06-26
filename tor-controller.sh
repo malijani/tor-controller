@@ -180,7 +180,7 @@ then
     distro="debian"
 elif [ $(which pacman) ]
 then
-    distro="arch"
+    distro="archlinux"
 else
     echo "this script doesn't support your system. exiting."
     exit
