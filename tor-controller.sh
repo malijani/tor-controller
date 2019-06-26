@@ -378,5 +378,6 @@ case $inputArgument in
     -uc|--upload-conf ) UploadConf "upload-conf" ;;
     -ub|--upload-bridge ) UploadConf "upload-bridge" ;;
     -ubo|--upload-bridge-orbot ) UploadConf "upload-orbot" ;;
+    *) ShowUsage ;;
 esac
 	     
