@@ -240,7 +240,7 @@ then
     sudo pacman -Sy
     HandleTor
     sudo pacman -S tor torsocks --noconfirm --needed --force
-    GetObs4proxy
+    GetObfs4proxy
     AddConfig
     AskUserToEnableBridges
     StartAndEnableService
