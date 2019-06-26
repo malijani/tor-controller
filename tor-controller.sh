@@ -294,22 +294,22 @@ inputText=$@
 # its better to install pastebinit on your system
 if [ $(which pastebinit) ]
 then
-$inputText pastebinit -b paste.openstack.org
+$inputText | pastebinit -b paste.openstack.org
     if [ $? != 0 ]
     then
-	$inputText pastebinit -b slexy.org
+	$inputText | pastebinit -b slexy.org
     fi
 elif [ $(which wgetpaste) ]
 then
-$inputText wgetpaste
+$inputText | wgetpaste
 elif [ $(which fpaste)]
 then
-$inputText fpaste
+$inputText | fpaste
 elif [ $(which upaste) ]
 then
-$inputText upaste
+$inputText | upaste
 else
-    $inputText  curl --upload-file - https://transfer.sh/torBridges-$suffix
+    $inputText | curl --upload-file - https://transfer.sh/torBridges-$suffix
 fi 2>/dev/null
 } 
 
@@ -376,7 +376,7 @@ case $inputArgument in
     -tp|--transparent-proxy ) TransparentTorProxy "start-transparent" ;;
     -ip|--intransparent-proxy ) TransparentTorProxy "stop-transparent" ;;
     -uc|--upload-conf ) UploadConf "upload-conf" ;;
-    -ub|--upload-bridge ) UploadConf "upload-bridge" ;;
+    -ub|--upload-bridge ) UploadConf "upload-bridges" ;;
     -ubo|--upload-bridge-orbot ) UploadConf "upload-orbot" ;;
     *) ShowUsage ;;
 esac
