@@ -350,6 +350,8 @@ usage: tor-controller.sh --argument-input
 
 options: --install		-i
 	 --check-service	-cs
+	 --enable-bridges	-eb
+	 --disable-bridges	-db
 	 --transparent-proxy	-tp
 	 --intransparent-proxy	-ip
 	 --upload-conf		-uc
@@ -373,6 +375,8 @@ inputArgument=$1
 case $inputArgument in
     -i|--install ) Installer ;;
     -cs|--check-service ) ControlTor ;;
+    -eb|--enable-bridges ) EnableDisableBridges "enable" ;;
+    -db|--disable-bridges ) EnableDisableBridges "disable" ;;
     -tp|--transparent-proxy ) TransparentTorProxy "start-transparent" ;;
     -ip|--intransparent-proxy ) TransparentTorProxy "stop-transparent" ;;
     -uc|--upload-conf ) UploadConf "upload-conf" ;;
