@@ -339,3 +339,44 @@ fi
 # function to get new bridges(working on it!)
 #function GetBridges(){
 #}
+
+
+# function to print script usage
+function ShowUsage() {
+cat << EOF
+this is a simple script to control tor service on your linux system!
+
+usage: tor-controller.sh --argument-input
+
+options: --install		-i
+	 --check-service	-cs
+	 --transparent-proxy	-tp
+	 --intransparent-proxy	-ip
+	 --upload-conf		-uc
+	 --upload-bridge	-ub
+	 --upload-bridge-orbot	-ubo
+EOF
+}
+
+
+#### Control Arguments
+# check the count of them
+if [ "$#" -ne 1 ]; then
+    ShowUsage
+    exit
+fi
+
+
+# check input arguments
+# main script
+inputArgument=$1
+case $inputArgument in
+    -i|--install ) Installer ;;
+    -cs|--check-service ) ControlTor ;;
+    -tp|--transparent-proxy ) TransparentTorProxy "start-transparent" ;;
+    -ip|--intransparent-proxy ) TransparentTorProxy "stop-transparent" ;;
+    -uc|--upload-conf ) UploadConf "upload-conf" ;;
+    -ub|--upload-bridge ) UploadConf "upload-bridge" ;;
+    -ubo|--upload-bridge-orbot ) UploadConf "upload-orbot" ;;
+esac
+	     
