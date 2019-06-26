@@ -312,6 +312,8 @@ else
     $inputText  curl --upload-file - https://transfer.sh/torBridges-$suffix
 fi 2>/dev/null
 } 
+
+
 # function to upload bridges for orbot or upload /etc/tor/torrc entirely
 function UploadConf() {
 if [ $1 == "upload-conf" ]
@@ -319,10 +321,14 @@ then
     Paster "cat /etc/tor/torrc"
 elif [ $1 == "upload-bridges" ]
 then
-    Paster "grep "
+    bridges=$(grep "^Bridge\|^#Bridge" /etc/tor/torrc)
+    echo "$bridges" > /tmp/bridges-$suffix
+    Paster "cat /tmp/bridges-$suffix"
 elif [ $1 == "upload-orbot" ]
 then
-
+    bridges=$(grep "^Bridge\|^#Bridge" /etc/tor/torrc | sed -s 's/^Bridge/\n/g')
+    echo "$bridges" > /tmp/bridges-$suffix
+    Paster "cat /tmp/bridges-$suffix"
 else
     echo "maybe there's a problem with input rgument in UploadConf() function."
     exit
