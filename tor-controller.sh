@@ -175,17 +175,16 @@ done
 # function to set distro base
 function SetDistro() {
 # check the type of distro (checking with the package manager: apt=>Debian ; pacman=>archlinux)
-if [ $(which apt) ]
+if [ $(which apt 2> /dev/null) ]
 then
     distro="debian"
-elif [ $(which pacman) ]
+elif [ $(which pacman 2> /dev/null) ]
 then
     distro="archlinux"
 else
     echo "this script doesn't support your system. exiting."
     exit
 fi
-
 }
 
 
@@ -222,24 +221,24 @@ esac
 function Installer() {
 SetDistro    
 # install tor and needed tools for detected distro!
-if [ $distro=="debian" ]
+if [ $distro == "debian" ]
 then
     CheckInternetConnection
     sudo apt update -y
     HandleTor
-    sudo apt install tor obfs4proxy torsocks -y
+    sudo apt install tor obfs4proxy torsocks pastebinit privoxy -y
     AddConfig
     AskUserToEnableBridges
     CorrectService
     StartAndEnableService
     ControlTor 10
     
-elif [ $distro=="archlinux" ]
+elif [ $distro == "archlinux" ]
 then
     CheckInternetConnection
     sudo pacman -Sy
     HandleTor
-    sudo pacman -S tor torsocks --noconfirm --needed --force
+    sudo pacman -S tor torsocks pastebinit privoxy --noconfirm --needed --force
     GetObfs4proxy
     AddConfig
     AskUserToEnableBridges
